@@ -1,0 +1,278 @@
+.contentBrewPage {
+    h1 {
+        font-size: 10pt;
+        white-space: nowrap;
+        margin: 1pt;
+    }
+    .brewPageElement {
+        text-align: center;
+        padding: 5pt;
+    }
+    .MachineStateDisplay {
+        display: flex;
+        flex-direction: column;
+                
+        p {
+            font-size: 14pt;
+            margin-top: 2pt;
+            font-weight: bold;
+
+            .icon {
+                --fa-animation-duration: 1s;
+                --fa-beat-scale: 1.1;
+            }
+        }
+    }
+    .ExtractionStateDisplay {
+
+        display: flex;
+        justify-content: center;
+
+        .statusBar {
+            display: flex;
+            align-items: center;
+            width: 90%;
+            margin-top: 20pt;
+            margin-bottom: 10pt;
+    
+            .statusBarElement {
+                flex-grow: 0;
+                height: 12pt;
+                width: 12pt;
+                background-color: var($textColor);
+                position: relative;
+                border-radius: 50%;
+                z-index: 100;
+    
+                label {
+                    position: absolute;
+                    display: block;
+                    top: -16pt;
+                    left: 50%;
+                    width: 60pt;
+                    margin-left: -30pt;
+                    font-size: 8pt;
+                }
+
+                &.finished {
+                    background-color: var($accentColor);
+                }
+                &.current {
+                    label {
+                        font-weight: bold;
+                        color: var($accentColor);
+                    }
+                    animation: glowing 1s ease-in-out infinite alternate;
+                    @keyframes glowing {
+                        from {
+                            box-shadow: 0 0 1pt var($accentColor);
+                        }
+                        to {
+                            box-shadow: 0 0 15pt var($accentColor);
+                        }
+                    }
+                }
+                
+
+            }
+            .statusBarBar{
+                flex-grow: 1;
+                height: 4pt;
+                background-color: var($textColor);
+                position: relative;
+                overflow: visible;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: -1pt;
+                    top: 0;
+                    height: 100%;
+                    width: calc(100% + 2pt);
+                    background-color: inherit;
+                }
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: -1pt;
+                    top: 0;
+                    height: 100%;
+                    width: 0;
+                    background-color: var($accentColor);
+                }
+                &.finished::after {
+                    width: calc(100% + 2pt);
+                    transition: width 1s;
+                }
+            }
+        }
+    }
+    .ExtractionProfileSelector {
+        .button {
+            white-space: normal;
+        }
+    }
+    .GraphStateToggle {
+        display: flex;
+        justify-content: space-around;
+        padding-top: 0;
+        .GraphStateToggleButton {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 70%;
+            margin-bottom: 5pt;
+            button {
+                position: relative;
+                white-space: nowrap;
+                &.active {
+                    z-index: 100;
+                }
+
+                &.buttonLeft {
+                    margin-right: -5.5pt;
+                    padding: 1pt 20pt 1pt 15pt;
+                }
+                &.buttonRight {
+                    margin-left: -5.5pt;
+                    padding: 1pt 15pt 1pt 20pt;
+                }
+
+            }
+        }
+    }
+
+    .GraphPlot {
+        padding: 5pt;
+        padding-bottom: 0;
+    }
+
+    .askForSavePopup {
+        position: absolute;
+        right: -5pt;
+        transform: translateX(200%);
+        top: 40%;
+        background-color: var($accentColor);
+        color: var($accentTextColor);
+        padding: 5pt 30pt 5pt 5pt;
+        border-radius: 5pt;
+        text-align: center;
+        // box-shadow: 0pt 0pt 2pt var($textColor);
+        transition: 0.2s;
+        .button {
+            background-color: inherit;
+            color: inherit;
+            font-size: 10pt;
+            padding: 10pt;
+            width: 50%;
+        }
+        @media (orientation: portrait) {
+            top: 60%;
+        }
+    }
+
+
+    @media (orientation: portrait) {
+        display: flex;
+        flex-direction: column;
+
+        .MachineStateDisplay {
+            padding-top: 15pt;
+            padding-bottom: 15pt;
+            border-bottom: 1px solid var($lightColor);
+        }
+        .ExtractionProfileSelector {
+            margin-top: 10pt;
+            //margin-bottom: 5pt;
+        }
+        .ExtractionStateDisplay {
+            padding-bottom: 10pt;
+            border-bottom: 1px solid var($lightColor);
+        }
+        .DataIndicator {
+            padding-top: 10pt;
+            .dataPointWrapper {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+        .GraphPlot {
+            flex-grow: 1;
+            overflow: hidden;
+            position: relative;
+            .GrindAmountIndicator {
+                padding: 0;
+                position: absolute;
+                left: 5pt;
+                top: 5pt;
+                white-space: nowrap;
+            }
+        }
+    }
+    @media (orientation: landscape) {
+        display: grid;
+        grid-template-columns: minmax(120pt, auto) auto 1fr minmax(120pt, 10%);
+        grid-template-rows: 52pt 1fr 0fr;
+        grid-template-areas: 
+        "MachineStateDisplay ExtractionStateDisplay ExtractionStateDisplay ExtractionProfileSelector"
+        "DataIndicator DataIndicator GraphPlot GraphPlot"
+        "DataIndicator DataIndicator GraphStateToggle GraphStateToggle";
+
+        .MachineStateDisplay {
+            grid-area: MachineStateDisplay;
+            border-bottom: 1px solid var($lightColor);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .ExtractionStateDisplay {
+            grid-area: ExtractionStateDisplay;
+            border-bottom: 1px solid var($lightColor);
+        }
+        .ExtractionProfileSelector {
+            grid-area: ExtractionProfileSelector;
+            border-bottom: 1px solid var($lightColor);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-right: 5pt;
+
+            .button {
+                min-width: 100pt;
+            }
+        }
+        .DataIndicator {
+            grid-area: DataIndicator;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+
+            &:before {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 5%;
+                height: 90%;
+                width: 50%;
+                border-right: 1px solid var($lightColor);
+            }
+
+            .dataPointWrapper {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .GraphPlot {
+            grid-area: GraphPlot;
+            overflow: hidden;
+            position: relative;
+            .GrindAmountIndicator {
+                padding: 0;
+                position: absolute;
+                left: 5pt;
+                top: 5pt;
+                white-space: nowrap;
+            }
+        }
+        .GraphStateToggle {
+            grid-area: GraphStateToggle;
+        }
+    }
+}

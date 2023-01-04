@@ -1,0 +1,170 @@
+.contentProfilingPage {
+    overflow: hidden;
+    .profilingPageElement {
+        min-width: 0;
+    }
+
+    @media (orientation: portrait) {
+        display: flex;
+        flex-direction: column;
+        
+        .ProfilingList {
+            flex-grow: 1;
+        }
+    
+        .ProfilePreviewer {
+            border-top: 1px solid var($lightColor);
+            flex-grow: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 0fr 1fr 0fr;
+            grid-template-areas: 
+                "Heading Heading Heading Heading"
+                "Description Description Description Description"
+                "Edit Edit Active Delete";
+            .Heading {
+                grid-area: Heading;
+            }
+            .GraphPlot {
+                display: none;
+            }
+            .Description {
+                grid-area: Description;
+            }
+            .EditButton {
+                grid-area: Edit;
+            }
+            .ActiveButton {
+                grid-area: Active;
+            }
+            .DeleteButton {
+                grid-area: Delete;
+            }
+        }
+    }
+    @media (orientation: landscape) {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+
+        .ProfilingList {
+            border-right: 1px solid var($lightColor);
+        }
+    
+        .ProfilePreviewer {
+            min-height: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 0fr 1fr 0fr 0fr;
+            grid-template-areas: 
+                "Heading Heading Heading Heading"
+                "GraphPlot GraphPlot GraphPlot GraphPlot"
+                "Description Description Description Description"
+                "Edit Edit Active Delete";
+            .Heading {
+                grid-area: Heading;
+            }
+            .GraphPlot {
+                grid-area: GraphPlot;
+            }
+            .Description {
+                grid-area: Description;
+            }
+            .EditButton {
+                grid-area: Edit;
+            }
+            .ActiveButton {
+                grid-area: Active;
+            }
+            .DeleteButton {
+                grid-area: Delete;
+            }
+        }
+    }  
+
+    .ProfilingList {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        .list {
+            li {
+                position: relative;
+                padding-left: 30pt;
+                &.active:active {
+                    background-color: var($accentColor);
+                }
+                &.chosenProfile::after {
+                    font-family:"Font Awesome 6 Free";
+                    font-weight: 900;
+                    content: "\f111";
+                    left: 15pt;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    position: absolute;
+                    font-size: 8pt;
+                    font-weight: bold;
+                    color: var($accentColor);
+                }
+                &.active.chosenProfile::after {
+                    color: var($accentTextColor);
+                }
+            }
+        }
+    }
+
+    .ProfilePreviewer {
+        position: relative;
+        padding: 10pt;
+        h1 {
+            font-size: 16pt;
+            margin-bottom: 10pt;
+        }
+        .GraphPlot {
+            overflow: hidden;
+            height: 100%;
+        }
+        .Description {
+            padding: 10pt 0;
+            label {
+                font-weight: bold;
+                margin-right: 5pt;
+            }
+        }
+        .button {
+            font-size: 10pt;
+            padding: 5pt;
+            margin-top: 0;
+            &.EditButton {
+                margin-right: 2pt;
+            }
+            &.DeleteButton {
+                margin-left: 2pt;
+            }
+        }
+    }
+}
+
+.modalCreateNewProfile {
+    h1 {
+        font-size: 12pt;
+        margin-bottom: 10pt;
+    }
+    input {
+        border: none;
+        display: block;
+        width: 100%;
+        color: var($textColor);
+        font-size: 22pt;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10pt;
+        &:focus {
+            outline: none;
+        }
+    }
+    .submitButton {
+        font-size: 24pt;
+        color: var($lightColor);
+        background-color: inherit;
+    }
+
+}

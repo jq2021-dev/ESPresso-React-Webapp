@@ -1,0 +1,92 @@
+.contentHistoryPage {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    h1 {
+        font-size: 10pt;
+        white-space: nowrap;
+        margin: 1pt;
+    }
+    .HistoryList {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+    .DataIndicator {
+        .dataPointWrapper {
+            .dataPoint.mouseData .Value {
+                opacity: 1;
+            }
+        }
+    }
+    @media (orientation: portrait) {
+        .showHistoryData {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            .DataIndicator {
+                padding: 10pt;
+                .dataPointWrapper {
+                    grid-template-columns: 1fr 1fr 1fr;
+                }
+                .GrindAmountIndicator {
+                    padding: 0;
+                    position: absolute;
+                    left: 5%;
+                    top: 105%;
+                    white-space: nowrap;
+                }
+            }
+            .GraphPlot {
+                overflow: hidden;
+                flex-grow: 1;
+            }
+        }
+    }
+    @media (orientation: landscape) {
+        .showHistoryData {
+            flex-grow: 1;
+            padding: 10pt;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            justify-content: stretch;
+            align-items: stretch;
+            .DataIndicator {
+                grid-area: DataIndicator;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: stretch;
+                
+    
+                &:before {
+                    content: "";
+                    position: absolute;
+                    right: 0;
+                    top: 5%;
+                    height: 90%;
+                    width: 50%;
+                    border-right: 1px solid var($lightColor);
+                }
+    
+                .dataPointWrapper {
+                    grid-template-columns: 1fr 1fr;
+                }
+                .GrindAmountIndicator {
+                    padding: 0;
+                    position: absolute;
+                    left: 105%;
+                    top: 5%;
+                    white-space: nowrap;
+                }
+            }
+            .GraphPlot {
+                flex-grow: 2;
+            }
+        }
+    }
+}

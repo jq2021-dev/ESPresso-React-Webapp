@@ -1,0 +1,380 @@
+.contentProfilingPageEdit {
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 0fr 0fr 1fr 60pt;
+    grid-template-areas: 
+        "header header"
+        "PhaseManager PhaseManager"
+        "ControlTerminationList Graph"
+        "ControlTerminationList ValueModifier";
+    .ProfilingHeader {
+        grid-area: header;
+        box-shadow: none;
+        .Middle.input {
+            position: relative;
+            width: 100%;
+            color: var($accentTextColor);
+            overflow: visible;
+            i {
+                position: absolute;
+                z-index: 100;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 10pt;
+                background-color: var($accentColor);
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding-left:5pt;
+            }
+            &:focus-within i {
+                display: none;
+            }
+            input {
+                background-color: transparent;
+                text-align: center;
+                width: 100%;
+                font-size: 16pt;
+                font-weight: bold;
+                position: relative;
+                text-overflow: ellipsis;
+                color: inherit;
+            }
+            .descriptionInput {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left:50%;
+                transform: translateX(-50%);
+                background-color: var($accentColor);
+                z-index: 1000;
+                border-radius: 0 0 5pt 5pt;
+                font-size: 10pt;
+                transition: all ease 0.6s;
+                max-height: 0;
+                overflow: hidden;
+                input {
+                    font-size: inherit;
+                    margin: 5pt 0;
+                }
+            }
+            &:focus-within .descriptionInput {
+                padding-top: 5pt;
+                max-height: 100pt;
+            }
+        }
+    }
+    .ProfilingPhaseManager {
+        grid-area: PhaseManager;
+        grid-template-columns: 1fr 1fr 3fr 1fr 1fr;
+        grid-template-areas: "Left MiddleLeft Middle MiddleRight Right";
+        padding: 2pt 0;
+        border-bottom: 0;
+        box-shadow: none;
+        border-right: 1px solid var($lightColor);
+        .Middle {
+            // flex-direction: column;
+            font-size: 18pt;
+            font-weight: bold;
+            .input {
+                position: relative;
+                width: calc(100% - 20pt);
+                i {
+                    position: absolute;
+                    z-index: 100;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    font-size: 10pt;
+                    background-color: var($bgColor);
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    padding-left:5pt;
+                }
+                &:focus-within i {
+                    display: none;
+                }
+                input {
+                    text-align: center;
+                    width: 100%;
+                    font-size: 18pt;
+                    font-weight: inherit;
+                    position: relative;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+    .ProfilingControlTerminationList {
+        grid-area: ControlTerminationList;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        .tabs {
+            display: flex;
+            justify-content: stretch;
+            border-bottom: 1px solid var($lightColor);
+            .tab {
+                flex-grow: 1;
+                text-align: center;
+                padding: 10pt 10pt 10pt 10pt;
+                margin: 2pt 10pt -1px 5pt;
+                &:first-child {
+                    margin: 2pt 5pt -1px 10pt;;
+                }
+                border: 1px solid var($lightColor);
+                border-radius: 5pt 5pt 0 0;
+                background-color: var($bgColor);
+                font-weight: bold;
+                // cursor:pointer;
+                &.active {
+                    border-bottom: none;
+                    color: var($accentColor);
+                }
+            }
+        }
+        .list {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-auto-rows: 1fr;
+            border-right: 1px solid var($lightColor);
+            li {
+                min-height: 35pt;
+                font-weight: bold;
+                padding: 0 0 0 30pt;
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                justify-content: stretch;
+                align-items: center;
+                .name {
+                    flex-grow: 1;
+                }
+                .modButton {
+                    font-size: 18pt;
+                    line-height: 35pt;
+                    padding: 0pt 15pt;
+                    // cursor:pointer;
+                }
+                &.enabled {
+                    .modButton {
+                        // color: #4ed164;
+                        color: var($accentColor);
+                    }
+                }
+                &.disabled {
+                    span {
+                        opacity: 0.3;
+                    }
+                }
+                &.active {
+                    background-color: inherit;
+                    color: var($accentColor);
+                    &.disabled {
+                        span {
+                            opacity: 0.3;
+                        }
+                    }
+                    &.enabled::after {
+                        font-family:"Font Awesome 6 Free";
+                        font-weight: 900;
+                        content: "\f111";
+                        left: 15pt;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        position: absolute;
+                        font-size: 8pt;
+                        font-weight: bold;
+                        color: var($accentColor);
+                    }
+                }
+            }
+        }
+    }
+    .GraphPlot {
+        min-height: 0;
+        overflow: hidden;
+        grid-area: Graph;
+        padding: 10pt;
+        position: relative;
+        .GrindAmountIndicator {
+            padding: 0;
+            position: absolute;
+            left: 5pt;
+            top: 5pt;
+            white-space: nowrap;
+            .button {
+                background-color: var($accentColor);
+                color: var($accentTextColor);
+                transform: scale(1);
+                transform-origin: top left;
+                transition: all ease 0.8s;
+                text-align: left;
+                .inputHint {
+                    font-size: 6pt;
+                    font-weight: normal;
+                    max-width: 0;
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: all ease 0.8s;
+                }
+                &:focus-within {
+                    transform: scale(1.5);
+                    .inputHint {
+                        max-width: 100pt;
+                        max-height: 100pt;
+                    }
+                }
+                input {
+                    width: 20pt;
+                    font-weight: bold;
+                    margin-left: 5pt;
+                    text-align: left;
+                    &[type=number] {
+                        -webkit-appearance: textfield;
+                    }
+                    &::-webkit-outer-spin-button,
+                    &::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+    .zoombutton {
+        position: absolute;
+        right: 5pt;
+        top: 40pt;
+        font-size: 10pt;
+        padding: 3pt 8pt;
+        background-color: var($textColor);
+        color: var($bgColor);
+        border-radius: 15pt;
+        z-index: 500;
+    }
+    .ProfilingValueModifier {
+        grid-area: ValueModifier;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        border-top: 1px solid var($lightColor);
+        .NumberModifier {
+            flex-grow: 1;
+            max-width: 150pt;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: 0fr 1fr 0fr;
+            grid-template-areas:
+                "buttonMinus label buttonPlus"
+                "buttonMinus value buttonPlus"
+                "buttonMinus unit buttonPlus";
+            justify-items: stretch;
+            align-items: stretch;
+            text-align: center;
+            margin: 5pt 0;
+            label {
+                border-top: 1px solid var($accentColor);
+                font-weight: bold;
+                font-size: 8pt;
+                grid-area: label;
+                width: 100%;
+            }
+            .button {
+                height: 100%;
+                border-radius: 0;
+                background-color: inherit;
+                font-size: 10pt;
+                background-color: var($accentColor);
+                color: var($bgColor);
+                padding: 0;
+            }
+            .buttonMinus {
+                grid-area: buttonMinus;
+                border-radius: 15pt 0 0 15pt;
+            }
+            .buttonPlus {
+                grid-area: buttonPlus;
+                border-radius: 0 15pt 15pt 0;
+            }
+            .value {
+                font-weight: bold;
+                font-size: 18pt;
+                line-height: 18pt;
+                padding: 0;
+                grid-area: value;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .unit {
+                font-size: 8pt;
+                font-weight: bold;
+                grid-area: unit;
+                border-bottom: 1px solid var($accentColor);
+            }
+        }
+        .TerminationLabel {
+            font-size: 24pt;
+            font-weight: bold;
+            text-align: center;
+            color: var($accentColor);
+        }
+        .TerminationType {
+            text-align: center;
+            font-size: 16pt;
+            line-height: 30pt;
+            background-color: var($accentColor);
+            color: var($bgColor);
+            width: 30pt;
+            height: 30pt;
+            border-radius: 15pt;
+            // cursor:pointer;
+        }
+    }
+    @media (orientation: portrait) {
+        &>*:not(.ProfilingHeader){
+            display: none !important;
+        }
+        &::after {
+            content: "Flip Phone";
+            top: 50%;
+            position: absolute;
+            font-size: 18pt;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+        }
+        &::before {
+            font-family:"Font Awesome 6 Free";
+            text-align: center;
+            font-weight: 900;
+            content: "\f3cf";
+            font-size: 45pt;
+            width: 100%;
+            bottom: 50%;
+            position: absolute;
+            animation: rotate 2s infinite;
+
+            @keyframes rotate {
+                0% {
+                  transform: rotate(0deg)
+                }
+                50% {
+                  transform: rotate(90deg)
+                }
+                100% {
+                    transform: rotate(0deg)
+                  }
+            }
+        }
+    }
+}

@@ -1,0 +1,63 @@
+.loadingBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    height: 2pt;
+    width: 100%;
+    background-image: linear-gradient(to right, var($bgColor), var($accentColor), var($bgColor), var($accentColor), var($bgColor));
+    background-size: 200%;
+    animation: bg-animation 6s linear infinite normal;
+    @keyframes bg-animation {
+        0% {
+            background-position: 0%;
+        }
+        100% {
+            background-position: 200%;
+        }
+    }
+}
+.Notification {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    color: var($bgColor);
+    padding: 0;
+    border-radius: 0 0 5pt 5pt;
+    overflow: hidden;
+    min-width: 50pt;
+    max-width: 60%;
+    // box-shadow: 0 1pt 1pt var($textColor);
+    z-index: 910;
+    .message {
+        background-color: var($accentColor);
+        &.error {
+            background-color: var($warningColor);
+        }
+        text-align: center;
+        animation: popupAnim 0.05s linear;
+        overflow: hidden;
+        padding: 3pt 10pt;
+        line-height: 12pt;
+        @keyframes popupAnim {
+            from {
+                opacity: 0;
+                max-height: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 12pt;
+                padding: 3pt 10pt;
+            }
+        }
+    }
+}
+
+.noConnection {
+    opacity: 0.3 !important;
+    pointer-events: none;
+    position: relative;
+}

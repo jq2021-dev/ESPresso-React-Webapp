@@ -1,0 +1,282 @@
+#root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.content {
+    flex-grow: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.button {
+    display: inline-block;
+    border: 0;
+    border-radius: 10pt;
+    padding: 3pt 10pt 3pt 10pt;
+    color: var($inverseTextColor);
+    background-color: var($textColor);
+    font-size: 8pt;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    position: relative;
+
+    &.active {
+        background-color: var($accentColor);
+        color: var($accentTextColor);
+    }
+
+    &:hover {
+        cursor:pointer;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+.textLink {
+    font-size: 14pt;
+    text-align: center;
+    padding: 7pt 15pt;
+    white-space: nowrap;
+    position: relative;
+    &.active {
+        color: var($accentColor);
+    }
+    &.inactive {
+        color: var($lightColor);
+    }
+    &:hover {
+        cursor:pointer;
+    }
+}
+input {
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    border: none;
+    &:focus {
+        outline: none;
+    }
+    color: inherit;
+    background-color: inherit;
+}
+
+.modalOverlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 1000;
+    &.closed {
+        display: none;
+    }
+}
+.modal {
+    position: absolute;
+    top: 4%;
+    height: 96%;
+    left: 0%;
+    width: 100%;
+    background-color: var($bgColor);
+    padding: 20pt;
+    padding-top: 50pt;
+    border: 1px solid var($lightColor);
+    border-radius: 10pt 10pt 0 0;
+    z-index: 1000;
+    text-align: center;
+
+    .closeButton {
+        position: absolute;
+        background-color: inherit;
+        color: var($textColor);
+        right: 0pt;
+        top: 0pt;
+        font-size: 20pt;
+        padding: 10pt 12pt;
+    }
+    &.closed {
+        display: none;
+    }
+}
+.contextOverlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0);
+    z-index: 999;
+    &.closed {
+        display: none;
+    }
+}
+.contextMenu {
+    position: absolute;
+    color: var($bgColor);
+    border-radius: 10pt;
+    border: 1px solid var($lightColor);
+    font-size: 12pt;
+    display: flex;
+    flex-direction: column;
+    // box-shadow: 0 0 2pt var($lightColor);
+    z-index: 1000;
+    transition: all 0.1s;
+    overflow: hidden;
+    transform: scale(0);
+    &.opened {
+        transform: scale(1);
+    }
+    .popupButton {
+        padding: 10pt 15pt;
+        background-color: var($bgColor);
+        color: var($textColor);
+        white-space: nowrap;
+        // cursor:pointer;
+        &.red  {
+            background-color: var($warningColor);
+            color: var($accentTextColor);
+        }
+        &.accent {
+            background-color: var($accentColor);
+            color: var($accentTextColor);
+        }
+        &.borderBottom {
+            border-bottom: 1px solid var($lightColor);
+        }
+        &.heading {
+            font-weight: bold;
+            // cursor:auto;
+        }
+    }
+}
+
+.header {
+    flex-grow: 0;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-areas: "Left Middle Right";
+    align-content: center;
+    justify-items: stretch;
+    border-bottom: 1px solid var($lightColor);
+    // box-shadow: 0 1pt 1pt var($lightColor);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &.accentColor {
+        color: var($accentTextColor);
+        .textLink {
+            color: inherit;
+            &.inactive {
+                opacity: 0.2;
+            }
+        }
+    }
+
+    .Left {
+        grid-area: Left;
+        text-align: left;
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
+    .Middle {
+        grid-area: Middle;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    .Right {
+        grid-area: Right;
+        text-align: right;
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        align-items: center;
+    }
+}
+.list {
+    flex-grow: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    li {
+        display: block;
+        padding: 10pt;
+        border-bottom: 1px solid var($lightColor);
+        h2 {
+            font-size: 12pt;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 6pt;
+        }
+        p {
+            display: grid;
+            grid-template-columns: 0fr auto;
+            white-space: nowrap;
+            label {
+                display: inline-block;
+                font-weight: bold;
+                margin-right: 10pt;
+            }
+            span {
+                display: inline-block;
+            }
+        }
+        &.active {
+            background-color: var($accentColor);
+            color: var($accentTextColor);
+        }
+        &:active {
+            background-color: var($lightColor);
+        }
+    }
+}
+
+.DataIndicator {
+    position: relative;
+    .dataPointWrapper {
+        height: 100%;
+        display: grid;
+        background-color: var($lightColor);
+        grid-gap: 1px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        .dataPoint {
+            background-color: var($bgColor);
+            padding: 5pt 2pt 5pt 2pt;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            label {
+                font-size: 8pt;
+                font-weight: bold;
+                //white-space: nowrap;
+            }
+            .Value {
+                font-size: 18pt;
+                font-weight: bold;
+            }
+            .Unit {
+                font-size: 8pt;
+                //font-weight: bold;
+            }
+            &.mouseData {
+                .Value {
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
+}

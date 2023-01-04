@@ -1,0 +1,29 @@
+.contentSettingsPage {
+    padding: 10pt;
+    h1 {
+        text-align: center;
+        margin-top: 5pt;
+        margin-bottom: 10pt;
+    }
+    .list {
+        margin-bottom: 20pt;
+        overflow: visible;
+        li {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            label {
+                font-weight: bold;
+                width: 30%;
+                display: inline-block;
+            }
+            &.active {
+                background-color: var($accentColor);
+                color: var($bgColor);
+            }
+            &:active {
+                background-color: inherit;
+            }
+        }
+    }
+}

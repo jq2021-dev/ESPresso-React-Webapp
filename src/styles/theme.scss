@@ -1,0 +1,41 @@
+$bgColor: --theme-bgColor;
+$textColor: --theme-textColor;
+$lightColor: --theme-LightColor;
+$accentColor: --theme-accentColor;
+$inverseTextColor: --theme-inverseTextColor;
+$accentTextColor: --theme-accentTextColor;
+$warningColor: --theme-WarningColor;
+
+$theme-map-light: (
+    $bgColor: white,
+    $textColor: #6f7687,
+    $lightColor: #eeeeee,
+    $accentColor: #009cff,
+    $inverseTextColor: white,
+    $accentTextColor: white,
+    $warningColor: #e62200,
+);
+
+$theme-map-dark: (
+    $bgColor: #252526,
+    $textColor: #ccc,
+    $lightColor: #323233,
+    $accentColor: #009cff,
+    $inverseTextColor: rgb(44, 44, 46),
+    $accentTextColor: white,
+    $warningColor: #e62200,
+);
+
+@mixin spread-map($map: ()) {
+    @each $key, $value in $map {
+        #{$key}: $value;
+    }
+}
+
+body {
+    @include spread-map($theme-map-light);
+}
+
+body.dark {
+    @include spread-map($theme-map-dark);
+}

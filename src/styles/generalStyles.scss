@@ -1,0 +1,25 @@
+html, body {
+    color: var($textColor);
+    background-color: var($bgColor);
+    font-size: 10pt;
+    //font-weight: bold;
+    height: 100%;
+    width: 100%;
+    min-height: 0;
+    overflow: hidden;
+    position: fixed;
+}
+
+.accentColor {
+    background-color: var($accentColor);
+    color: var($inverseTextColor)
+}
+
+a:active, button:active, .button:active {
+    opacity: 0.6;
+    outline: none;
+}
+
+.blurBackground {
+    backdrop-filter: blur(2pt);
+}
